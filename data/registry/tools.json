@@ -1,0 +1,2031 @@
+[
+  {
+    "tool_id": "paypal_rest_apis_create_draft_invoice",
+    "name": "Create Invoice",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Creates a new invoice for a recipient. Allows setting amount, currency, recipient email, and invoice details.",
+    "method": "POST",
+    "endpoint": "/v2/invoicing/invoices",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "detail": {
+          "type": "object",
+          "description": "Request body field detail"
+        },
+        "invoicer": {
+          "type": "object",
+          "description": "Request body field invoicer"
+        },
+        "primary_recipients": {
+          "type": "array",
+          "description": "Request body field primary_recipients"
+        },
+        "items": {
+          "type": "array",
+          "description": "Request body field items"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"detail\": {\n    \"invoice_number\": \"#123\",\n    \"currency_code\": \"USD\"\n  },\n  \"invoicer\": {\n    \"name\": {\"given_name\": \"Merchant\"}\n  },\n  \"primary_recipients\": [{\n    \"billing_info\": {\"email_address\": \"client@example.com\"}\n  }],\n  \"items\": [{\n    \"name\": \"Service\",\n    \"quantity\": \"1\",\n    \"unit_amount\": {\"currency_code\": \"USD\", \"value\": \"50.00\"}\n  }]\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Create Draft Invoice",
+      "How do I create draft invoice?",
+      "Execute Create Draft Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate create draft invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices",
+      "Create an invoice for  to bob@example.com",
+      "Create a new invoice",
+      "Draft an invoice for customer",
+      "Generate an invoice for ",
+      "Create invoice"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Create Draft Invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices"
+          ]
+        },
+        "description": "Creates a draft invoice. To move the invoice from a draft to payable state, send the invoice.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"detail\": {\n    \"invoice_number\": \"#123\",\n    \"currency_code\": \"USD\"\n  },\n  \"invoicer\": {\n    \"name\": {\"given_name\": \"Merchant\"}\n  },\n  \"primary_recipients\": [{\n    \"billing_info\": {\"email_address\": \"client@example.com\"}\n  }],\n  \"items\": [{\n    \"name\": \"Service\",\n    \"quantity\": \"1\",\n    \"unit_amount\": {\"currency_code\": \"USD\", \"value\": \"50.00\"}\n  }]\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_send_invoice",
+    "name": "Send Invoice",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Sends an invoice by ID to its recipient customer, moving it from draft to unpaid/sent state.",
+    "method": "POST",
+    "endpoint": "/v2/invoicing/invoices/{invoice_id}/send",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": "string",
+          "description": "URL path parameter: invoice_id"
+        },
+        "send_to_recipient": {
+          "type": "number",
+          "description": "Request body field send_to_recipient"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Request body field subject"
+        }
+      },
+      "required": [
+        "invoice_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"send_to_recipient\": true,\n  \"subject\": \"Invoice from Merchant\"\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Send Invoice",
+      "How do I send invoice?",
+      "Execute Send Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate send invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices/{invoice_id}/send"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Send Invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}/send",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices",
+            "{invoice_id}",
+            "send"
+          ]
+        },
+        "description": "Sends an invoice by ID to its recipient customer, moving it from draft to unpaid/sent state.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"send_to_recipient\": true,\n  \"subject\": \"Invoice from Merchant\"\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_invoices",
+    "name": "List Invoices",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Lists all invoices for the authenticated merchant.",
+    "method": "GET",
+    "endpoint": "/v2/invoicing/invoices",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "Page index"
+        },
+        "page_size": {
+          "type": "string",
+          "description": "Number of invoices per page"
+        },
+        "total_required": {
+          "type": "string",
+          "description": "Include total count in response"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Invoices",
+      "How do I list invoices?",
+      "Execute List Invoices for my account",
+      "Show all Invoices",
+      "Get a list of invoicing",
+      "Fetch list invoices",
+      "Run GET on /v2/invoicing/invoices"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Invoices",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=20&total_required=true",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page index"
+            },
+            {
+              "key": "page_size",
+              "value": "20",
+              "description": "Number of invoices per page"
+            },
+            {
+              "key": "total_required",
+              "value": "true",
+              "description": "Include total count in response"
+            }
+          ]
+        },
+        "description": "Lists all invoices for the authenticated merchant."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_get_invoice_details",
+    "name": "Get Invoice Details",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Shows details for a specific invoice by ID, including line items and payment status.",
+    "method": "GET",
+    "endpoint": "/v2/invoicing/invoices/{invoice_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": "string",
+          "description": "URL path parameter: invoice_id"
+        }
+      },
+      "required": [
+        "invoice_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Get Invoice Details",
+      "How do I get invoice details?",
+      "Execute Get Invoice Details for my account",
+      "Show all Get Invoice Details",
+      "Get a list of invoicing",
+      "Fetch get invoice details",
+      "Run GET on /v2/invoicing/invoices/{invoice_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Get Invoice Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices",
+            "{invoice_id}"
+          ]
+        },
+        "description": "Shows details for a specific invoice by ID, including line items and payment status."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_cancel_sent_invoice",
+    "name": "Cancel Sent Invoice",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Cancels a sent invoice by ID and notifies recipient.",
+    "method": "POST",
+    "endpoint": "/v2/invoicing/invoices/{invoice_id}/cancel",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": "string",
+          "description": "URL path parameter: invoice_id"
+        },
+        "subject": {
+          "type": "string",
+          "description": "Request body field subject"
+        },
+        "note": {
+          "type": "string",
+          "description": "Request body field note"
+        },
+        "send_to_recipient": {
+          "type": "number",
+          "description": "Request body field send_to_recipient"
+        }
+      },
+      "required": [
+        "invoice_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"subject\": \"Invoice cancelled\",\n  \"note\": \"Service cancelled by agreement\",\n  \"send_to_recipient\": true\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Cancel Sent Invoice",
+      "How do I cancel sent invoice?",
+      "Execute Cancel Sent Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate cancel sent invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices/{invoice_id}/cancel"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Cancel Sent Invoice",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}/cancel",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices",
+            "{invoice_id}",
+            "cancel"
+          ]
+        },
+        "description": "Cancels a sent invoice by ID and notifies recipient.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subject\": \"Invoice cancelled\",\n  \"note\": \"Service cancelled by agreement\",\n  \"send_to_recipient\": true\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_delete_draft_invoice",
+    "name": "Delete Draft Invoice",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Deletes a draft invoice by ID. Only invoices in DRAFT status can be deleted.",
+    "method": "DELETE",
+    "endpoint": "/v2/invoicing/invoices/{invoice_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": "string",
+          "description": "URL path parameter: invoice_id"
+        }
+      },
+      "required": [
+        "invoice_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.delete",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Delete Draft Invoice",
+      "How do I delete draft invoice?",
+      "Execute Delete Draft Invoice for my account",
+      "Remove this invoicing",
+      "Delete invoicing by ID",
+      "Run DELETE on /v2/invoicing/invoices/{invoice_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Delete Draft Invoice",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices",
+            "{invoice_id}"
+          ]
+        },
+        "description": "Deletes a draft invoice by ID. Only invoices in DRAFT status can be deleted."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_update_invoice",
+    "name": "Update Invoice",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Updates invoice details, amount, or recipient before final settlement.",
+    "method": "PUT",
+    "endpoint": "/v2/invoicing/invoices/{invoice_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "invoice_id": {
+          "type": "string",
+          "description": "URL path parameter: invoice_id"
+        },
+        "detail": {
+          "type": "object",
+          "description": "Request body field detail"
+        }
+      },
+      "required": [
+        "invoice_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"detail\": {\"note\": \"Updated terms\"}\n}"
+    },
+    "permission": "paypal_rest_apis.put",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Update Invoice",
+      "How do I update invoice?",
+      "Execute Update Invoice for my account",
+      "Update settings for invoicing",
+      "Modify existing invoicing",
+      "Run PUT on /v2/invoicing/invoices/{invoice_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Update Invoice",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "invoices",
+            "{invoice_id}"
+          ]
+        },
+        "description": "Updates invoice details, amount, or recipient before final settlement.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"detail\": {\"note\": \"Updated terms\"}\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_invoice_templates",
+    "name": "List Invoice Templates",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Lists all invoice layout templates configured for billing.",
+    "method": "GET",
+    "endpoint": "/v2/invoicing/templates",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "Page index"
+        },
+        "page_size": {
+          "type": "string",
+          "description": "Page size"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Invoice Templates",
+      "How do I list invoice templates?",
+      "Execute List Invoice Templates for my account",
+      "Show all Invoice Templates",
+      "Get a list of invoicing",
+      "Fetch list invoice templates",
+      "Run GET on /v2/invoicing/templates"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Invoice Templates",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates?page=1&page_size=20",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "templates"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "description": "Page index"
+            },
+            {
+              "key": "page_size",
+              "value": "20",
+              "description": "Page size"
+            }
+          ]
+        },
+        "description": "Lists all invoice layout templates configured for billing."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_create_invoice_template",
+    "name": "Create Invoice Template",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Creates a reusable template with standard merchant invoice layout settings.",
+    "method": "POST",
+    "endpoint": "/v2/invoicing/templates",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Request body field name"
+        },
+        "default_template": {
+          "type": "number",
+          "description": "Request body field default_template"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"name\": \"Consulting Template\",\n  \"default_template\": false\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Create Invoice Template",
+      "How do I create invoice template?",
+      "Execute Create Invoice Template for my account",
+      "Create a new invoicing",
+      "Submit and initiate create invoice template",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/templates"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Create Invoice Template",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "templates"
+          ]
+        },
+        "description": "Creates a reusable template with standard merchant invoice layout settings.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Consulting Template\",\n  \"default_template\": false\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_get_invoice_template",
+    "name": "Get Invoice Template",
+    "service": "paypal_rest_apis",
+    "category": "invoicing",
+    "description": "Retrieves configuration details of a specific invoice template by ID.",
+    "method": "GET",
+    "endpoint": "/v2/invoicing/templates/{template_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "template_id": {
+          "type": "string",
+          "description": "URL path parameter: template_id"
+        }
+      },
+      "required": [
+        "template_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Get Invoice Template",
+      "How do I get invoice template?",
+      "Execute Get Invoice Template for my account",
+      "Show all Get Invoice Template",
+      "Get a list of invoicing",
+      "Fetch get invoice template",
+      "Run GET on /v2/invoicing/templates/{template_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Get Invoice Template",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates/{template_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "invoicing",
+            "templates",
+            "{template_id}"
+          ]
+        },
+        "description": "Retrieves configuration details of a specific invoice template by ID."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_capture_authorized_payment",
+    "name": "Capture Authorized Payment",
+    "service": "paypal_rest_apis",
+    "category": "payments",
+    "description": "Captures funds for an authorized payment by authorization ID.",
+    "method": "POST",
+    "endpoint": "/v2/payments/authorizations/{authorization_id}/capture",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "authorization_id": {
+          "type": "string",
+          "description": "URL path parameter: authorization_id"
+        },
+        "amount": {
+          "type": "object",
+          "description": "Request body field amount"
+        },
+        "is_final_capture": {
+          "type": "number",
+          "description": "Request body field is_final_capture"
+        }
+      },
+      "required": [
+        "authorization_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"is_final_capture\": true\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Capture Authorized Payment",
+      "How do I capture authorized payment?",
+      "Execute Capture Authorized Payment for my account",
+      "Create a new payments",
+      "Submit and initiate capture authorized payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/authorizations/{authorization_id}/capture"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Capture Authorized Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/{authorization_id}/capture",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "payments",
+            "authorizations",
+            "{authorization_id}",
+            "capture"
+          ]
+        },
+        "description": "Captures funds for an authorized payment by authorization ID.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"is_final_capture\": true\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_void_authorized_payment",
+    "name": "Void Authorized Payment",
+    "service": "paypal_rest_apis",
+    "category": "payments",
+    "description": "Voids an authorized payment, releasing the held funds back to customer.",
+    "method": "POST",
+    "endpoint": "/v2/payments/authorizations/{authorization_id}/void",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "authorization_id": {
+          "type": "string",
+          "description": "URL path parameter: authorization_id"
+        }
+      },
+      "required": [
+        "authorization_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Void Authorized Payment",
+      "How do I void authorized payment?",
+      "Execute Void Authorized Payment for my account",
+      "Create a new payments",
+      "Submit and initiate void authorized payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/authorizations/{authorization_id}/void"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Void Authorized Payment",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/{authorization_id}/void",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "payments",
+            "authorizations",
+            "{authorization_id}",
+            "void"
+          ]
+        },
+        "description": "Voids an authorized payment, releasing the held funds back to customer."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_refund_captured_payment",
+    "name": "Refund Captured Payment",
+    "service": "paypal_rest_apis",
+    "category": "payments",
+    "description": "Refunds a captured payment by capture ID, either full or partial amount.",
+    "method": "POST",
+    "endpoint": "/v2/payments/captures/{capture_id}/refund",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "capture_id": {
+          "type": "string",
+          "description": "URL path parameter: capture_id"
+        },
+        "amount": {
+          "type": "object",
+          "description": "Request body field amount"
+        },
+        "note_to_payer": {
+          "type": "string",
+          "description": "Request body field note_to_payer"
+        }
+      },
+      "required": [
+        "capture_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"note_to_payer\": \"Refund as requested\"\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Refund Captured Payment",
+      "How do I refund captured payment?",
+      "Execute Refund Captured Payment for my account",
+      "Create a new payments",
+      "Submit and initiate refund captured payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/captures/{capture_id}/refund"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Refund Captured Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/payments/captures/{capture_id}/refund",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "payments",
+            "captures",
+            "{capture_id}",
+            "refund"
+          ]
+        },
+        "description": "Refunds a captured payment by capture ID, either full or partial amount.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"note_to_payer\": \"Refund as requested\"\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_show_captured_payment_details",
+    "name": "Show Captured Payment Details",
+    "service": "paypal_rest_apis",
+    "category": "payments",
+    "description": "Shows status, transaction fee, and breakdown of captured funds.",
+    "method": "GET",
+    "endpoint": "/v2/payments/captures/{capture_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "capture_id": {
+          "type": "string",
+          "description": "URL path parameter: capture_id"
+        }
+      },
+      "required": [
+        "capture_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Show Captured Payment Details",
+      "How do I show captured payment details?",
+      "Execute Show Captured Payment Details for my account",
+      "Show all Show Captured Payment Details",
+      "Get a list of payments",
+      "Fetch show captured payment details",
+      "Run GET on /v2/payments/captures/{capture_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Show Captured Payment Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/payments/captures/{capture_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "payments",
+            "captures",
+            "{capture_id}"
+          ]
+        },
+        "description": "Shows status, transaction fee, and breakdown of captured funds."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_customer_disputes",
+    "name": "List Customer Disputes",
+    "service": "paypal_rest_apis",
+    "category": "disputes",
+    "description": "Lists customer disputes filed against merchant transactions.",
+    "method": "GET",
+    "endpoint": "/v1/customer/disputes",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dispute_state": {
+          "type": "string",
+          "description": "Filter by dispute state"
+        },
+        "page_size": {
+          "type": "string",
+          "description": "Max disputes to return"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Customer Disputes",
+      "How do I list customer disputes?",
+      "Execute List Customer Disputes for my account",
+      "Show all Customer Disputes",
+      "Get a list of disputes",
+      "Fetch list customer disputes",
+      "Run GET on /v1/customer/disputes"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Customer Disputes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes?dispute_state=REQUIRED_ACTION",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "customer",
+            "disputes"
+          ],
+          "query": [
+            {
+              "key": "dispute_state",
+              "value": "REQUIRED_ACTION",
+              "description": "Filter by dispute state"
+            },
+            {
+              "key": "page_size",
+              "value": "10",
+              "description": "Max disputes to return"
+            }
+          ]
+        },
+        "description": "Lists customer disputes filed against merchant transactions."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_show_dispute_details",
+    "name": "Show Dispute Details",
+    "service": "paypal_rest_apis",
+    "category": "disputes",
+    "description": "Shows full claim reasons, buyer communication, and deadlines for a dispute.",
+    "method": "GET",
+    "endpoint": "/v1/customer/disputes/{dispute_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dispute_id": {
+          "type": "string",
+          "description": "URL path parameter: dispute_id"
+        }
+      },
+      "required": [
+        "dispute_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Show Dispute Details",
+      "How do I show dispute details?",
+      "Execute Show Dispute Details for my account",
+      "Show all Show Dispute Details",
+      "Get a list of disputes",
+      "Fetch show dispute details",
+      "Run GET on /v1/customer/disputes/{dispute_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Show Dispute Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "customer",
+            "disputes",
+            "{dispute_id}"
+          ]
+        },
+        "description": "Shows full claim reasons, buyer communication, and deadlines for a dispute."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_accept_customer_dispute_claim",
+    "name": "Accept Customer Dispute Claim",
+    "service": "paypal_rest_apis",
+    "category": "disputes",
+    "description": "Accepts customer dispute claim, settling the dispute and refunding buyer.",
+    "method": "POST",
+    "endpoint": "/v1/customer/disputes/{dispute_id}/accept-claim",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dispute_id": {
+          "type": "string",
+          "description": "URL path parameter: dispute_id"
+        },
+        "note": {
+          "type": "string",
+          "description": "Request body field note"
+        }
+      },
+      "required": [
+        "dispute_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"note\": \"Accepting claim and issuing refund to buyer\"\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Accept Customer Dispute Claim",
+      "How do I accept customer dispute claim?",
+      "Execute Accept Customer Dispute Claim for my account",
+      "Create a new disputes",
+      "Submit and initiate accept customer dispute claim",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/accept-claim"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Accept Customer Dispute Claim",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/accept-claim",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "customer",
+            "disputes",
+            "{dispute_id}",
+            "accept-claim"
+          ]
+        },
+        "description": "Accepts customer dispute claim, settling the dispute and refunding buyer.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"note\": \"Accepting claim and issuing refund to buyer\"\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_appeal_dispute_decision",
+    "name": "Appeal Dispute Decision",
+    "service": "paypal_rest_apis",
+    "category": "disputes",
+    "description": "Appeals a resolved dispute when new evidence surfaces.",
+    "method": "POST",
+    "endpoint": "/v1/customer/disputes/{dispute_id}/appeal",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dispute_id": {
+          "type": "string",
+          "description": "URL path parameter: dispute_id"
+        },
+        "evidence_type": {
+          "type": "string",
+          "description": "Request body field evidence_type"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Request body field notes"
+        }
+      },
+      "required": [
+        "dispute_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"evidence_type\": \"PROOF_OF_DELIVERY\",\n  \"notes\": \"Delivery confirmed by carrier tracking\"\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Appeal Dispute Decision",
+      "How do I appeal dispute decision?",
+      "Execute Appeal Dispute Decision for my account",
+      "Create a new disputes",
+      "Submit and initiate appeal dispute decision",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/appeal"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Appeal Dispute Decision",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/appeal",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "customer",
+            "disputes",
+            "{dispute_id}",
+            "appeal"
+          ]
+        },
+        "description": "Appeals a resolved dispute when new evidence surfaces.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"evidence_type\": \"PROOF_OF_DELIVERY\",\n  \"notes\": \"Delivery confirmed by carrier tracking\"\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_provide_evidence_for_dispute",
+    "name": "Provide Evidence for Dispute",
+    "service": "paypal_rest_apis",
+    "category": "disputes",
+    "description": "Submits tracking numbers or fulfillment documents to challenge buyer claim.",
+    "method": "POST",
+    "endpoint": "/v1/customer/disputes/{dispute_id}/provide-evidence",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "dispute_id": {
+          "type": "string",
+          "description": "URL path parameter: dispute_id"
+        },
+        "evidence_type": {
+          "type": "string",
+          "description": "Request body field evidence_type"
+        },
+        "tracking_number": {
+          "type": "string",
+          "description": "Request body field tracking_number"
+        }
+      },
+      "required": [
+        "dispute_id"
+      ]
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"evidence_type\": \"PROOF_OF_SHIPMENT\",\n  \"tracking_number\": \"1Z9999999999999999\"\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Provide Evidence for Dispute",
+      "How do I provide evidence for dispute?",
+      "Execute Provide Evidence for Dispute for my account",
+      "Create a new disputes",
+      "Submit and initiate provide evidence for dispute",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/provide-evidence"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Provide Evidence for Dispute",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/provide-evidence",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "customer",
+            "disputes",
+            "{dispute_id}",
+            "provide-evidence"
+          ]
+        },
+        "description": "Submits tracking numbers or fulfillment documents to challenge buyer claim.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"evidence_type\": \"PROOF_OF_SHIPMENT\",\n  \"tracking_number\": \"1Z9999999999999999\"\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_create_order",
+    "name": "Create Order",
+    "service": "paypal_rest_apis",
+    "category": "orders",
+    "description": "Creates a PayPal checkout order with intent CAPTURE or AUTHORIZE.",
+    "method": "POST",
+    "endpoint": "/v2/checkout/orders",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "Request body field intent"
+        },
+        "purchase_units": {
+          "type": "array",
+          "description": "Request body field purchase_units"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"intent\": \"CAPTURE\",\n  \"purchase_units\": [{\n    \"amount\": {\"currency_code\": \"USD\", \"value\": \"100.00\"}\n  }]\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Create Order",
+      "How do I create order?",
+      "Execute Create Order for my account",
+      "Create a new orders",
+      "Submit and initiate create order",
+      "Please generate orders",
+      "Run POST on /v2/checkout/orders"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "checkout",
+            "orders"
+          ]
+        },
+        "description": "Creates a PayPal checkout order with intent CAPTURE or AUTHORIZE.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"intent\": \"CAPTURE\",\n  \"purchase_units\": [{\n    \"amount\": {\"currency_code\": \"USD\", \"value\": \"100.00\"}\n  }]\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_show_order_details",
+    "name": "Show Order Details",
+    "service": "paypal_rest_apis",
+    "category": "orders",
+    "description": "Shows status, purchase units, and customer approval for order by ID.",
+    "method": "GET",
+    "endpoint": "/v2/checkout/orders/{id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "URL path parameter: id"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Show Order Details",
+      "How do I show order details?",
+      "Execute Show Order Details for my account",
+      "Show all Show Order Details",
+      "Get a list of orders",
+      "Fetch show order details",
+      "Run GET on /v2/checkout/orders/{id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Show Order Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "checkout",
+            "orders",
+            "{id}"
+          ]
+        },
+        "description": "Shows status, purchase units, and customer approval for order by ID."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_capture_payment_for_order",
+    "name": "Capture Payment for Order",
+    "service": "paypal_rest_apis",
+    "category": "orders",
+    "description": "Captures payment for an approved order.",
+    "method": "POST",
+    "endpoint": "/v2/checkout/orders/{id}/capture",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "URL path parameter: id"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Capture Payment for Order",
+      "How do I capture payment for order?",
+      "Execute Capture Payment for Order for my account",
+      "Create a new orders",
+      "Submit and initiate capture payment for order",
+      "Please generate orders",
+      "Run POST on /v2/checkout/orders/{id}/capture"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Capture Payment for Order",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}/capture",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v2",
+            "checkout",
+            "orders",
+            "{id}",
+            "capture"
+          ]
+        },
+        "description": "Captures payment for an approved order."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_transactions",
+    "name": "List Transactions",
+    "service": "paypal_rest_apis",
+    "category": "reporting",
+    "description": "Searches transactions, incoming payments, and sales volume over a date window.",
+    "method": "GET",
+    "endpoint": "/v1/reporting/transactions",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "description": "Start ISO 8601 date range"
+        },
+        "end_date": {
+          "type": "string",
+          "description": "End ISO 8601 date range"
+        },
+        "fields": {
+          "type": "string",
+          "description": "Transaction detail fields"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Transactions",
+      "How do I list transactions?",
+      "Execute List Transactions for my account",
+      "Show all Transactions",
+      "Get a list of reporting",
+      "Fetch list transactions",
+      "Run GET on /v1/reporting/transactions"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Transactions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/reporting/transactions?start_date=2026-09-01T00:00:00Z&end_date=2026-09-30T23:59:59Z",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "reporting",
+            "transactions"
+          ],
+          "query": [
+            {
+              "key": "start_date",
+              "value": "2026-09-01T00:00:00Z",
+              "description": "Start ISO 8601 date range"
+            },
+            {
+              "key": "end_date",
+              "value": "2026-09-30T23:59:59Z",
+              "description": "End ISO 8601 date range"
+            },
+            {
+              "key": "fields",
+              "value": "all",
+              "description": "Transaction detail fields"
+            }
+          ]
+        },
+        "description": "Searches transactions, incoming payments, and sales volume over a date window."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_account_balances",
+    "name": "List Account Balances",
+    "service": "paypal_rest_apis",
+    "category": "reporting",
+    "description": "Lists current available and pending balances for all primary currencies.",
+    "method": "GET",
+    "endpoint": "/v1/reporting/balances",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Account Balances",
+      "How do I list account balances?",
+      "Execute List Account Balances for my account",
+      "Show all Account Balances",
+      "Get a list of reporting",
+      "Fetch list account balances",
+      "Run GET on /v1/reporting/balances"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Account Balances",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/reporting/balances",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "reporting",
+            "balances"
+          ]
+        },
+        "description": "Lists current available and pending balances for all primary currencies."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_create_payout_batch",
+    "name": "Create Payout Batch",
+    "service": "paypal_rest_apis",
+    "category": "payouts",
+    "description": "Creates a batch payout to multiple recipients or contractors at once.",
+    "method": "POST",
+    "endpoint": "/v1/payments/payouts",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "sender_batch_header": {
+          "type": "object",
+          "description": "Request body field sender_batch_header"
+        },
+        "items": {
+          "type": "array",
+          "description": "Request body field items"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"sender_batch_header\": {\"email_subject\": \"Payment sent\"},\n  \"items\": [{\n    \"recipient_type\": \"EMAIL\",\n    \"amount\": {\"value\": \"100.00\", \"currency\": \"USD\"},\n    \"receiver\": \"contractor@example.com\"\n  }]\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Create Payout Batch",
+      "How do I create payout batch?",
+      "Execute Create Payout Batch for my account",
+      "Create a new payouts",
+      "Submit and initiate create payout batch",
+      "Please generate payouts",
+      "Run POST on /v1/payments/payouts"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Create Payout Batch",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/payments/payouts",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "payments",
+            "payouts"
+          ]
+        },
+        "description": "Creates a batch payout to multiple recipients or contractors at once.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender_batch_header\": {\"email_subject\": \"Payment sent\"},\n  \"items\": [{\n    \"recipient_type\": \"EMAIL\",\n    \"amount\": {\"value\": \"100.00\", \"currency\": \"USD\"},\n    \"receiver\": \"contractor@example.com\"\n  }]\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_show_payout_batch_details",
+    "name": "Show Payout Batch Details",
+    "service": "paypal_rest_apis",
+    "category": "payouts",
+    "description": "Shows status and completion items for a payout batch by ID.",
+    "method": "GET",
+    "endpoint": "/v1/payments/payouts/{payout_batch_id}",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "payout_batch_id": {
+          "type": "string",
+          "description": "URL path parameter: payout_batch_id"
+        }
+      },
+      "required": [
+        "payout_batch_id"
+      ]
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Show Payout Batch Details",
+      "How do I show payout batch details?",
+      "Execute Show Payout Batch Details for my account",
+      "Show all Show Payout Batch Details",
+      "Get a list of payouts",
+      "Fetch show payout batch details",
+      "Run GET on /v1/payments/payouts/{payout_batch_id}"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Show Payout Batch Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/payments/payouts/{payout_batch_id}",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "payments",
+            "payouts",
+            "{payout_batch_id}"
+          ]
+        },
+        "description": "Shows status and completion items for a payout batch by ID."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_list_webhooks",
+    "name": "List Webhooks",
+    "service": "paypal_rest_apis",
+    "category": "notifications",
+    "description": "Lists all configured webhook subscription listeners.",
+    "method": "GET",
+    "endpoint": "/v1/notifications/webhooks",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "paypal_rest_apis.get",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "List Webhooks",
+      "How do I list webhooks?",
+      "Execute List Webhooks for my account",
+      "Show all Webhooks",
+      "Get a list of notifications",
+      "Fetch list webhooks",
+      "Run GET on /v1/notifications/webhooks"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "List Webhooks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "notifications",
+            "webhooks"
+          ]
+        },
+        "description": "Lists all configured webhook subscription listeners."
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_create_webhook",
+    "name": "Create Webhook",
+    "service": "paypal_rest_apis",
+    "category": "notifications",
+    "description": "Registers a new webhook URL listener to receive event notifications.",
+    "method": "POST",
+    "endpoint": "/v1/notifications/webhooks",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Request body field url"
+        },
+        "event_types": {
+          "type": "array",
+          "description": "Request body field event_types"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {
+      "type": "object",
+      "raw_example": "{\n  \"url\": \"https://example.com/webhook\",\n  \"event_types\": [{\"name\": \"*\"}]\n}"
+    },
+    "permission": "paypal_rest_apis.post",
+    "risk_level": "HIGH",
+    "is_active": true,
+    "example_queries": [
+      "Create Webhook",
+      "How do I create webhook?",
+      "Execute Create Webhook for my account",
+      "Create a new notifications",
+      "Submit and initiate create webhook",
+      "Please generate notifications",
+      "Run POST on /v1/notifications/webhooks"
+    ],
+    "is_generated": true,
+    "is_synthetic": false,
+    "original_definition": {
+      "name": "Create Webhook",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+          "protocol": "https",
+          "host": [
+            "api-m",
+            "sandbox",
+            "paypal",
+            "com"
+          ],
+          "path": [
+            "v1",
+            "notifications",
+            "webhooks"
+          ]
+        },
+        "description": "Registers a new webhook URL listener to receive event notifications.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"https://example.com/webhook\",\n  \"event_types\": [{\"name\": \"*\"}]\n}"
+        }
+      }
+    }
+  },
+  {
+    "tool_id": "paypal_rest_apis_search_invoices",
+    "name": "Search Invoices",
+    "service": "invoicing",
+    "category": "invoices",
+    "description": "Searches for invoices matching specific criteria such as recipient email, status, date range, or invoice number.",
+    "method": "POST",
+    "endpoint": "/v2/invoicing/search-invoices",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "recipient_email": {
+          "type": "string",
+          "description": "Recipient email address",
+          "location": "body"
+        },
+        "invoice_number": {
+          "type": "string",
+          "description": "Specific invoice number",
+          "location": "body"
+        },
+        "status": {
+          "type": "array",
+          "description": "Status filter (DRAFT, SENT, PAID, CANCELLED)",
+          "location": "body"
+        },
+        "total_required": {
+          "type": "boolean",
+          "default": true,
+          "location": "body"
+        }
+      },
+      "required": []
+    },
+    "request_schema": {},
+    "permission": "api.execute",
+    "risk_level": "LOW",
+    "is_active": true,
+    "example_queries": [
+      "Search for invoices sent to bob@example.com",
+      "Find invoice with number INV-1234",
+      "Search paid invoices",
+      "Look up invoice by recipient",
+      "Search all recent invoices"
+    ],
+    "is_generated": false,
+    "is_synthetic": false,
+    "original_definition": {}
+  }
+]

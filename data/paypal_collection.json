@@ -1,0 +1,508 @@
+{
+  "info": {
+    "_postman_id": "c1f7b110-82a1-45d2-9b6d-nexus-paypal-official",
+    "name": "PayPal REST APIs",
+    "description": "Verified Official PayPal REST APIs Collection for NEXUS Agent Tool Registry",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Invoicing",
+      "item": [
+        {
+          "name": "Create Draft Invoice",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices"]
+            },
+            "description": "Creates a draft invoice. To move the invoice from a draft to payable state, send the invoice.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detail\": {\n    \"invoice_number\": \"#123\",\n    \"currency_code\": \"USD\"\n  },\n  \"invoicer\": {\n    \"name\": {\"given_name\": \"Merchant\"}\n  },\n  \"primary_recipients\": [{\n    \"billing_info\": {\"email_address\": \"client@example.com\"}\n  }],\n  \"items\": [{\n    \"name\": \"Service\",\n    \"quantity\": \"1\",\n    \"unit_amount\": {\"currency_code\": \"USD\", \"value\": \"50.00\"}\n  }]\n}"
+            }
+          }
+        },
+        {
+          "name": "Send Invoice",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}/send",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices", "{invoice_id}", "send"]
+            },
+            "description": "Sends an invoice by ID to its recipient customer, moving it from draft to unpaid/sent state.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"send_to_recipient\": true,\n  \"subject\": \"Invoice from Merchant\"\n}"
+            }
+          }
+        },
+        {
+          "name": "List Invoices",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices?page=1&page_size=20&total_required=true",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices"],
+              "query": [
+                {"key": "page", "value": "1", "description": "Page index"},
+                {"key": "page_size", "value": "20", "description": "Number of invoices per page"},
+                {"key": "total_required", "value": "true", "description": "Include total count in response"}
+              ]
+            },
+            "description": "Lists all invoices for the authenticated merchant."
+          }
+        },
+        {
+          "name": "Get Invoice Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices", "{invoice_id}"]
+            },
+            "description": "Shows details for a specific invoice by ID, including line items and payment status."
+          }
+        },
+        {
+          "name": "Cancel Sent Invoice",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}/cancel",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices", "{invoice_id}", "cancel"]
+            },
+            "description": "Cancels a sent invoice by ID and notifies recipient.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject\": \"Invoice cancelled\",\n  \"note\": \"Service cancelled by agreement\",\n  \"send_to_recipient\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Draft Invoice",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices", "{invoice_id}"]
+            },
+            "description": "Deletes a draft invoice by ID. Only invoices in DRAFT status can be deleted."
+          }
+        },
+        {
+          "name": "Update Invoice",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/invoices/{invoice_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "invoices", "{invoice_id}"]
+            },
+            "description": "Updates invoice details, amount, or recipient before final settlement.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"detail\": {\"note\": \"Updated terms\"}\n}"
+            }
+          }
+        },
+        {
+          "name": "List Invoice Templates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates?page=1&page_size=20",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "templates"],
+              "query": [
+                {"key": "page", "value": "1", "description": "Page index"},
+                {"key": "page_size", "value": "20", "description": "Page size"}
+              ]
+            },
+            "description": "Lists all invoice layout templates configured for billing."
+          }
+        },
+        {
+          "name": "Create Invoice Template",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "templates"]
+            },
+            "description": "Creates a reusable template with standard merchant invoice layout settings.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Consulting Template\",\n  \"default_template\": false\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Invoice Template",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/invoicing/templates/{template_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "invoicing", "templates", "{template_id}"]
+            },
+            "description": "Retrieves configuration details of a specific invoice template by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Capture Authorized Payment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/{authorization_id}/capture",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "payments", "authorizations", "{authorization_id}", "capture"]
+            },
+            "description": "Captures funds for an authorized payment by authorization ID.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"is_final_capture\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Void Authorized Payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/payments/authorizations/{authorization_id}/void",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "payments", "authorizations", "{authorization_id}", "void"]
+            },
+            "description": "Voids an authorized payment, releasing the held funds back to customer."
+          }
+        },
+        {
+          "name": "Refund Captured Payment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/payments/captures/{capture_id}/refund",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "payments", "captures", "{capture_id}", "refund"]
+            },
+            "description": "Refunds a captured payment by capture ID, either full or partial amount.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": {\"value\": \"50.00\", \"currency_code\": \"USD\"},\n  \"note_to_payer\": \"Refund as requested\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Show Captured Payment Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/payments/captures/{capture_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "payments", "captures", "{capture_id}"]
+            },
+            "description": "Shows status, transaction fee, and breakdown of captured funds."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Disputes",
+      "item": [
+        {
+          "name": "List Customer Disputes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes?dispute_state=REQUIRED_ACTION",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "customer", "disputes"],
+              "query": [
+                {"key": "dispute_state", "value": "REQUIRED_ACTION", "description": "Filter by dispute state"},
+                {"key": "page_size", "value": "10", "description": "Max disputes to return"}
+              ]
+            },
+            "description": "Lists customer disputes filed against merchant transactions."
+          }
+        },
+        {
+          "name": "Show Dispute Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "customer", "disputes", "{dispute_id}"]
+            },
+            "description": "Shows full claim reasons, buyer communication, and deadlines for a dispute."
+          }
+        },
+        {
+          "name": "Accept Customer Dispute Claim",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/accept-claim",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "customer", "disputes", "{dispute_id}", "accept-claim"]
+            },
+            "description": "Accepts customer dispute claim, settling the dispute and refunding buyer.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"note\": \"Accepting claim and issuing refund to buyer\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Appeal Dispute Decision",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/appeal",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "customer", "disputes", "{dispute_id}", "appeal"]
+            },
+            "description": "Appeals a resolved dispute when new evidence surfaces.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"evidence_type\": \"PROOF_OF_DELIVERY\",\n  \"notes\": \"Delivery confirmed by carrier tracking\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Provide Evidence for Dispute",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/customer/disputes/{dispute_id}/provide-evidence",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "customer", "disputes", "{dispute_id}", "provide-evidence"]
+            },
+            "description": "Submits tracking numbers or fulfillment documents to challenge buyer claim.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"evidence_type\": \"PROOF_OF_SHIPMENT\",\n  \"tracking_number\": \"1Z9999999999999999\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "checkout", "orders"]
+            },
+            "description": "Creates a PayPal checkout order with intent CAPTURE or AUTHORIZE.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"intent\": \"CAPTURE\",\n  \"purchase_units\": [{\n    \"amount\": {\"currency_code\": \"USD\", \"value\": \"100.00\"}\n  }]\n}"
+            }
+          }
+        },
+        {
+          "name": "Show Order Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "checkout", "orders", "{id}"]
+            },
+            "description": "Shows status, purchase units, and customer approval for order by ID."
+          }
+        },
+        {
+          "name": "Capture Payment for Order",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v2/checkout/orders/{id}/capture",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v2", "checkout", "orders", "{id}", "capture"]
+            },
+            "description": "Captures payment for an approved order."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reporting",
+      "item": [
+        {
+          "name": "List Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/reporting/transactions?start_date=2026-09-01T00:00:00Z&end_date=2026-09-30T23:59:59Z",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "reporting", "transactions"],
+              "query": [
+                {"key": "start_date", "value": "2026-09-01T00:00:00Z", "description": "Start ISO 8601 date range"},
+                {"key": "end_date", "value": "2026-09-30T23:59:59Z", "description": "End ISO 8601 date range"},
+                {"key": "fields", "value": "all", "description": "Transaction detail fields"}
+              ]
+            },
+            "description": "Searches transactions, incoming payments, and sales volume over a date window."
+          }
+        },
+        {
+          "name": "List Account Balances",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/reporting/balances",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "reporting", "balances"]
+            },
+            "description": "Lists current available and pending balances for all primary currencies."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payouts",
+      "item": [
+        {
+          "name": "Create Payout Batch",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/payments/payouts",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "payments", "payouts"]
+            },
+            "description": "Creates a batch payout to multiple recipients or contractors at once.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sender_batch_header\": {\"email_subject\": \"Payment sent\"},\n  \"items\": [{\n    \"recipient_type\": \"EMAIL\",\n    \"amount\": {\"value\": \"100.00\", \"currency\": \"USD\"},\n    \"receiver\": \"contractor@example.com\"\n  }]\n}"
+            }
+          }
+        },
+        {
+          "name": "Show Payout Batch Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/payments/payouts/{payout_batch_id}",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "payments", "payouts", "{payout_batch_id}"]
+            },
+            "description": "Shows status and completion items for a payout batch by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "List Webhooks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "notifications", "webhooks"]
+            },
+            "description": "Lists all configured webhook subscription listeners."
+          }
+        },
+        {
+          "name": "Create Webhook",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "url": {
+              "raw": "https://api-m.sandbox.paypal.com/v1/notifications/webhooks",
+              "protocol": "https",
+              "host": ["api-m", "sandbox", "paypal", "com"],
+              "path": ["v1", "notifications", "webhooks"]
+            },
+            "description": "Registers a new webhook URL listener to receive event notifications.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"https://example.com/webhook\",\n  \"event_types\": [{\"name\": \"*\"}]\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+

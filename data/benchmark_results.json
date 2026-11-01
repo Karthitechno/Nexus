@@ -1,0 +1,67 @@
+{
+  "scales": {
+    "10": {
+      "tool_count": 10,
+      "approach_a": {
+        "recall_at_5": 0.1333,
+        "precision_at_5": 0.0533,
+        "mrr": 0.2333,
+        "avg_latency_ms": 0,
+        "queries_evaluated": 15,
+        "note": "Approach A: LLM receives all 10 tools in context."
+      },
+      "approach_b": {
+        "recall_at_5": 0.1333,
+        "precision_at_5": 0.0533,
+        "mrr": 0.2333,
+        "avg_latency_ms": 70.4,
+        "queries_evaluated": 15,
+        "errors": 0,
+        "note": "NEXUS hybrid retrieval (BM25 + Chroma + RRF + Cross-Encoder). LLM never sees full tool list."
+      }
+    },
+    "50": {
+      "tool_count": 50,
+      "approach_a": {
+        "recall_at_5": 0.2,
+        "precision_at_5": 0.08,
+        "mrr": 0.3667,
+        "avg_latency_ms": 0,
+        "queries_evaluated": 15,
+        "note": "Approach A: LLM receives all 50 tools in context."
+      },
+      "approach_b": {
+        "recall_at_5": 0.1333,
+        "precision_at_5": 0.0533,
+        "mrr": 0.2333,
+        "avg_latency_ms": 68.7,
+        "queries_evaluated": 15,
+        "errors": 0,
+        "note": "NEXUS hybrid retrieval (BM25 + Chroma + RRF + Cross-Encoder). LLM never sees full tool list."
+      }
+    },
+    "100": {
+      "tool_count": 100,
+      "approach_a": {
+        "recall_at_5": 0.2,
+        "precision_at_5": 0.08,
+        "mrr": 0.3667,
+        "avg_latency_ms": 0,
+        "queries_evaluated": 15,
+        "note": "Approach A: LLM context limit exceeded at 100 tools. Context degradation simulated via keyword matching upper bound."
+      },
+      "approach_b": {
+        "recall_at_5": 0.1333,
+        "precision_at_5": 0.0533,
+        "mrr": 0.2333,
+        "avg_latency_ms": 67.1,
+        "queries_evaluated": 15,
+        "errors": 0,
+        "note": "NEXUS hybrid retrieval (BM25 + Chroma + RRF + Cross-Encoder). LLM never sees full tool list."
+      }
+    }
+  },
+  "metadata": {
+    "eval_queries": 15
+  }
+}

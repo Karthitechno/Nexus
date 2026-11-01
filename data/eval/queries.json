@@ -1,0 +1,492 @@
+{
+  "version": "1.0.0",
+  "description": "NEXUS Ground Truth Benchmark Evaluation Dataset",
+  "metadata": {
+    "total_queries": 45,
+    "categories": ["invoicing", "payments", "disputes", "reporting", "orders", "payouts"],
+    "query_types": ["single_step", "multi_step", "hard_negative", "paraphrase", "vague"]
+  },
+  "queries": [
+    {
+      "id": "eval_001",
+      "query": "List all active invoices in my account",
+      "ground_truth_tools": ["paypal_invoices_list"],
+      "query_type": "single_step",
+      "service": "invoicing",
+      "expected_params": {},
+      "notes": "Standard single-step invoice list"
+    },
+    {
+      "id": "eval_002",
+      "query": "Show me all my invoice templates",
+      "ground_truth_tools": ["paypal_templates_list"],
+      "query_type": "hard_negative",
+      "service": "invoicing",
+      "expected_params": {},
+      "notes": "Hard negative against list invoices"
+    },
+    {
+      "id": "eval_003",
+      "query": "Send an invoice for $50 to bob@example.com",
+      "ground_truth_tools": ["paypal_invoices_create", "paypal_invoices_send"],
+      "query_type": "multi_step",
+      "service": "invoicing",
+      "expected_params": {
+        "amount": 50.0,
+        "recipient_email": "bob@example.com"
+      },
+      "notes": "Multi-step create and send invoice"
+    },
+    {
+      "id": "eval_004",
+      "query": "What was my total sales volume last month?",
+      "ground_truth_tools": ["paypal_transactions_search"],
+      "query_type": "single_step",
+      "service": "reporting",
+      "expected_params": {
+        "time_window": "last_month"
+      },
+      "notes": "Reporting transaction search with relative date"
+    },
+    {
+      "id": "eval_005",
+      "query": "Is there a dispute open from user_123?",
+      "ground_truth_tools": ["paypal_disputes_list"],
+      "query_type": "single_step",
+      "service": "disputes",
+      "expected_params": {
+        "disputed_transaction_id_or_user": "user_123"
+      },
+      "notes": "Dispute check"
+    },
+    {
+      "id": "eval_006",
+      "query": "Create an invoice template for consulting services",
+      "ground_truth_tools": ["paypal_templates_create"],
+      "query_type": "hard_negative",
+      "service": "invoicing",
+      "expected_params": {},
+      "notes": "Hard negative against create invoice"
+    },
+    {
+      "id": "eval_007",
+      "query": "Draft a bill of $1200 for web design services to client test@client.com",
+      "ground_truth_tools": ["paypal_invoices_create"],
+      "query_type": "paraphrase",
+      "service": "invoicing",
+      "expected_params": {
+        "amount": 1200.0,
+        "recipient_email": "test@client.com"
+      },
+      "notes": "Paraphrased draft invoice"
+    },
+    {
+      "id": "eval_008",
+      "query": "Cancel unpaid invoice INV2-9988-7766 and notify the customer",
+      "ground_truth_tools": ["paypal_invoices_cancel"],
+      "query_type": "single_step",
+      "service": "invoicing",
+      "expected_params": {
+        "invoice_id": "INV2-9988-7766"
+      },
+      "notes": "Invoice cancellation"
+    },
+    {
+      "id": "eval_009",
+      "query": "Delete draft invoice INV2-0011-2233",
+      "ground_truth_tools": ["paypal_invoices_delete"],
+      "query_type": "hard_negative",
+      "service": "invoicing",
+      "expected_params": {
+        "invoice_id": "INV2-0011-2233"
+      },
+      "notes": "Delete vs Cancel invoice"
+    },
+    {
+      "id": "eval_010",
+      "query": "Get full details for invoice INV2-4455-6677",
+      "ground_truth_tools": ["paypal_invoices_get"],
+      "query_type": "single_step",
+      "service": "invoicing",
+      "expected_params": {
+        "invoice_id": "INV2-4455-6677"
+      },
+      "notes": "Get invoice details"
+    },
+    {
+      "id": "eval_011",
+      "query": "Retrieve template layout TEMP-9988",
+      "ground_truth_tools": ["paypal_templates_get"],
+      "query_type": "hard_negative",
+      "service": "invoicing",
+      "expected_params": {
+        "template_id": "TEMP-9988"
+      },
+      "notes": "Get template vs get invoice"
+    },
+    {
+      "id": "eval_012",
+      "query": "Capture payment authorization AUTH-554433 for $250.00",
+      "ground_truth_tools": ["paypal_payments_capture"],
+      "query_type": "single_step",
+      "service": "payments",
+      "expected_params": {
+        "authorization_id": "AUTH-554433",
+        "amount": 250.0
+      },
+      "notes": "Capture authorized payment"
+    },
+    {
+      "id": "eval_013",
+      "query": "Void payment authorization AUTH-112233 so the customer hold is released",
+      "ground_truth_tools": ["paypal_payments_void"],
+      "query_type": "hard_negative",
+      "service": "payments",
+      "expected_params": {
+        "authorization_id": "AUTH-112233"
+      },
+      "notes": "Void authorization vs capture or cancel"
+    },
+    {
+      "id": "eval_014",
+      "query": "Issue a full refund of $75.50 for capture CAPT-887766",
+      "ground_truth_tools": ["paypal_payments_refund"],
+      "query_type": "single_step",
+      "service": "payments",
+      "expected_params": {
+        "capture_id": "CAPT-887766",
+        "amount": 75.5
+      },
+      "notes": "Refund captured payment"
+    },
+    {
+      "id": "eval_015",
+      "query": "Inspect captured payment CAPT-990011",
+      "ground_truth_tools": ["paypal_payments_get"],
+      "query_type": "single_step",
+      "service": "payments",
+      "expected_params": {
+        "capture_id": "CAPT-990011"
+      },
+      "notes": "Get capture details"
+    },
+    {
+      "id": "eval_016",
+      "query": "Show all unresolved buyer disputes on my merchant account",
+      "ground_truth_tools": ["paypal_disputes_list"],
+      "query_type": "paraphrase",
+      "service": "disputes",
+      "expected_params": {},
+      "notes": "List disputes paraphrase"
+    },
+    {
+      "id": "eval_017",
+      "query": "Fetch specific details for customer dispute DISP-1010",
+      "ground_truth_tools": ["paypal_disputes_get"],
+      "query_type": "single_step",
+      "service": "disputes",
+      "expected_params": {
+        "dispute_id": "DISP-1010"
+      },
+      "notes": "Get dispute details"
+    },
+    {
+      "id": "eval_018",
+      "query": "Accept customer claim on dispute DISP-2020 and refund their money",
+      "ground_truth_tools": ["paypal_disputes_accept_claim"],
+      "query_type": "hard_negative",
+      "service": "disputes",
+      "expected_params": {
+        "dispute_id": "DISP-2020"
+      },
+      "notes": "Accept dispute claim vs standard refund"
+    },
+    {
+      "id": "eval_019",
+      "query": "Appeal the lost dispute decision for DISP-3030 with reason seller evidence",
+      "ground_truth_tools": ["paypal_disputes_appeal"],
+      "query_type": "single_step",
+      "service": "disputes",
+      "expected_params": {
+        "dispute_id": "DISP-3030"
+      },
+      "notes": "Appeal dispute"
+    },
+    {
+      "id": "eval_020",
+      "query": "Submit proof of shipment tracking 1Z999 for dispute DISP-4040",
+      "ground_truth_tools": ["paypal_disputes_provide_evidence"],
+      "query_type": "single_step",
+      "service": "disputes",
+      "expected_params": {
+        "dispute_id": "DISP-4040"
+      },
+      "notes": "Provide evidence"
+    },
+    {
+      "id": "eval_021",
+      "query": "Create a checkout order for $150 USD with intent capture",
+      "ground_truth_tools": ["paypal_orders_create"],
+      "query_type": "single_step",
+      "service": "orders",
+      "expected_params": {
+        "amount": 150.0,
+        "currency": "USD"
+      },
+      "notes": "Create checkout order"
+    },
+    {
+      "id": "eval_022",
+      "query": "Check current status of order ORD-889900",
+      "ground_truth_tools": ["paypal_orders_get"],
+      "query_type": "single_step",
+      "service": "orders",
+      "expected_params": {
+        "id": "ORD-889900"
+      },
+      "notes": "Get order status"
+    },
+    {
+      "id": "eval_023",
+      "query": "Capture payment for authorized order ORD-776655",
+      "ground_truth_tools": ["paypal_orders_capture"],
+      "query_type": "hard_negative",
+      "service": "orders",
+      "expected_params": {
+        "id": "ORD-776655"
+      },
+      "notes": "Capture order vs capture payment auth"
+    },
+    {
+      "id": "eval_024",
+      "query": "Create order ORD-1234 for $80 and capture it immediately",
+      "ground_truth_tools": ["paypal_orders_create", "paypal_orders_capture"],
+      "query_type": "multi_step",
+      "service": "orders",
+      "expected_params": {
+        "amount": 80.0
+      },
+      "notes": "Multi-step order creation and capture"
+    },
+    {
+      "id": "eval_025",
+      "query": "Look up incoming and outgoing transactions between 2026-09-01 and 2026-09-30",
+      "ground_truth_tools": ["paypal_transactions_search"],
+      "query_type": "single_step",
+      "service": "reporting",
+      "expected_params": {
+        "start_date": "2026-09-01",
+        "end_date": "2026-09-30"
+      },
+      "notes": "Explicit range transaction search"
+    },
+    {
+      "id": "eval_026",
+      "query": "Show my account available and pending balance breakdown",
+      "ground_truth_tools": ["paypal_balances_get"],
+      "query_type": "single_step",
+      "service": "reporting",
+      "expected_params": {},
+      "notes": "Account balance inquiry"
+    },
+    {
+      "id": "eval_027",
+      "query": "Send $300 payout batch to partner contractor@agency.org",
+      "ground_truth_tools": ["paypal_payouts_create"],
+      "query_type": "single_step",
+      "service": "payouts",
+      "expected_params": {
+        "amount": 300.0,
+        "recipient_email": "contractor@agency.org"
+      },
+      "notes": "Payout creation"
+    },
+    {
+      "id": "eval_028",
+      "query": "Check status of payout batch BATCH-665544",
+      "ground_truth_tools": ["paypal_payouts_get"],
+      "query_type": "single_step",
+      "service": "payouts",
+      "expected_params": {
+        "payout_batch_id": "BATCH-665544"
+      },
+      "notes": "Get payout status"
+    },
+    {
+      "id": "eval_029",
+      "query": "List all configured webhook listeners for event notifications",
+      "ground_truth_tools": ["paypal_webhooks_list"],
+      "query_type": "single_step",
+      "service": "notifications",
+      "expected_params": {},
+      "notes": "Webhook list"
+    },
+    {
+      "id": "eval_030",
+      "query": "Register webhook endpoint https://api.mycrm.com/paypal-events for PAYMENT.CAPTURE.COMPLETED",
+      "ground_truth_tools": ["paypal_webhooks_create"],
+      "query_type": "single_step",
+      "service": "notifications",
+      "expected_params": {
+        "url": "https://api.mycrm.com/paypal-events"
+      },
+      "notes": "Create webhook"
+    },
+    {
+      "id": "eval_031",
+      "query": "bill someone for web design work",
+      "ground_truth_tools": ["paypal_invoices_create"],
+      "query_type": "vague",
+      "service": "invoicing",
+      "expected_params": {},
+      "notes": "Vague prompt for creating an invoice"
+    },
+    {
+      "id": "eval_032",
+      "query": "give the buyer their money back for capture 456",
+      "ground_truth_tools": ["paypal_payments_refund"],
+      "query_type": "vague",
+      "service": "payments",
+      "expected_params": {
+        "capture_id": "456"
+      },
+      "notes": "Vague refund wording"
+    },
+    {
+      "id": "eval_033",
+      "query": "did customer 999 file a complaint against me?",
+      "ground_truth_tools": ["paypal_disputes_list"],
+      "query_type": "vague",
+      "service": "disputes",
+      "expected_params": {},
+      "notes": "Vague dispute question"
+    },
+    {
+      "id": "eval_034",
+      "query": "how much cash came in during September?",
+      "ground_truth_tools": ["paypal_transactions_search"],
+      "query_type": "vague",
+      "service": "reporting",
+      "expected_params": {},
+      "notes": "Vague reporting sales request"
+    },
+    {
+      "id": "eval_035",
+      "query": "show me all my billing layout presets",
+      "ground_truth_tools": ["paypal_templates_list"],
+      "query_type": "paraphrase",
+      "service": "invoicing",
+      "expected_params": {},
+      "notes": "Paraphrase for invoice templates list"
+    },
+    {
+      "id": "eval_036",
+      "query": "Update invoice INV2-8877 line items with revised pricing",
+      "ground_truth_tools": ["paypal_invoices_update"],
+      "query_type": "single_step",
+      "service": "invoicing",
+      "expected_params": {
+        "invoice_id": "INV2-8877"
+      },
+      "notes": "Update invoice"
+    },
+    {
+      "id": "eval_037",
+      "query": "Find dispute DISP-9900 and accept their claim immediately",
+      "ground_truth_tools": ["paypal_disputes_get", "paypal_disputes_accept_claim"],
+      "query_type": "multi_step",
+      "service": "disputes",
+      "expected_params": {
+        "dispute_id": "DISP-9900"
+      },
+      "notes": "Multi-step inspect dispute then accept claim"
+    },
+    {
+      "id": "eval_038",
+      "query": "Can you dispatch invoice INV2-3344 to the client's email right away?",
+      "ground_truth_tools": ["paypal_invoices_send"],
+      "query_type": "single_step",
+      "service": "invoicing",
+      "expected_params": {
+        "invoice_id": "INV2-3344"
+      },
+      "notes": "Send existing invoice"
+    },
+    {
+      "id": "eval_039",
+      "query": "Send money to contractors team@agency.com for $450 and verify the payout batch record",
+      "ground_truth_tools": ["paypal_payouts_create", "paypal_payouts_get"],
+      "query_type": "multi_step",
+      "service": "payouts",
+      "expected_params": {
+        "amount": 450.0,
+        "recipient_email": "team@agency.com"
+      },
+      "notes": "Multi-step payout creation and verification"
+    },
+    {
+      "id": "eval_040",
+      "query": "Check if authorization AUTH-7711 is still valid or voided",
+      "ground_truth_tools": ["paypal_payments_get"],
+      "query_type": "single_step",
+      "service": "payments",
+      "expected_params": {
+        "authorization_id": "AUTH-7711"
+      },
+      "notes": "Check authorization status"
+    },
+    {
+      "id": "eval_041",
+      "query": "List all payments captured in the last 7 days",
+      "ground_truth_tools": ["paypal_transactions_search"],
+      "query_type": "hard_negative",
+      "service": "reporting",
+      "expected_params": {
+        "time_window": "last_7_days"
+      },
+      "notes": "Hard negative against payments get"
+    },
+    {
+      "id": "eval_042",
+      "query": "Draft an invoice for $500 to alice@example.com, send it, and get the invoice details",
+      "ground_truth_tools": ["paypal_invoices_create", "paypal_invoices_send", "paypal_invoices_get"],
+      "query_type": "multi_step",
+      "service": "invoicing",
+      "expected_params": {
+        "amount": 500.0,
+        "recipient_email": "alice@example.com"
+      },
+      "notes": "3-step full invoicing lifecycle"
+    },
+    {
+      "id": "eval_043",
+      "query": "What is my current PayPal wallet balance?",
+      "ground_truth_tools": ["paypal_balances_get"],
+      "query_type": "paraphrase",
+      "service": "reporting",
+      "expected_params": {},
+      "notes": "Paraphrase of balance get"
+    },
+    {
+      "id": "eval_044",
+      "query": "Release hold on customer authorization AUTH-9922 without charging them",
+      "ground_truth_tools": ["paypal_payments_void"],
+      "query_type": "paraphrase",
+      "service": "payments",
+      "expected_params": {
+        "authorization_id": "AUTH-9922"
+      },
+      "notes": "Paraphrase for voiding an authorization"
+    },
+    {
+      "id": "eval_045",
+      "query": "Show me what dispute appeals are currently in review",
+      "ground_truth_tools": ["paypal_disputes_list"],
+      "query_type": "paraphrase",
+      "service": "disputes",
+      "expected_params": {},
+      "notes": "Paraphrase for dispute query"
+    }
+  ]
+}
+

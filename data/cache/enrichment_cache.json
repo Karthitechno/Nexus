@@ -1,0 +1,336 @@
+{
+  "POST_/v2/invoicing/invoices_Create Draft Invoice": {
+    "description": "Creates a draft invoice. To move the invoice from a draft to payable state, send the invoice.",
+    "example_queries": [
+      "Create Draft Invoice",
+      "How do I create draft invoice?",
+      "Execute Create Draft Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate create draft invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices"
+    ]
+  },
+  "POST_/v2/invoicing/invoices/{invoice_id}/send_Send Invoice": {
+    "description": "Sends an invoice by ID to its recipient customer, moving it from draft to unpaid/sent state.",
+    "example_queries": [
+      "Send Invoice",
+      "How do I send invoice?",
+      "Execute Send Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate send invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices/{invoice_id}/send"
+    ]
+  },
+  "GET_/v2/invoicing/invoices_List Invoices": {
+    "description": "Lists all invoices for the authenticated merchant.",
+    "example_queries": [
+      "List Invoices",
+      "How do I list invoices?",
+      "Execute List Invoices for my account",
+      "Show all Invoices",
+      "Get a list of invoicing",
+      "Fetch list invoices",
+      "Run GET on /v2/invoicing/invoices"
+    ]
+  },
+  "GET_/v2/invoicing/invoices/{invoice_id}_Get Invoice Details": {
+    "description": "Shows details for a specific invoice by ID, including line items and payment status.",
+    "example_queries": [
+      "Get Invoice Details",
+      "How do I get invoice details?",
+      "Execute Get Invoice Details for my account",
+      "Show all Get Invoice Details",
+      "Get a list of invoicing",
+      "Fetch get invoice details",
+      "Run GET on /v2/invoicing/invoices/{invoice_id}"
+    ]
+  },
+  "POST_/v2/invoicing/invoices/{invoice_id}/cancel_Cancel Sent Invoice": {
+    "description": "Cancels a sent invoice by ID and notifies recipient.",
+    "example_queries": [
+      "Cancel Sent Invoice",
+      "How do I cancel sent invoice?",
+      "Execute Cancel Sent Invoice for my account",
+      "Create a new invoicing",
+      "Submit and initiate cancel sent invoice",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/invoices/{invoice_id}/cancel"
+    ]
+  },
+  "DELETE_/v2/invoicing/invoices/{invoice_id}_Delete Draft Invoice": {
+    "description": "Deletes a draft invoice by ID. Only invoices in DRAFT status can be deleted.",
+    "example_queries": [
+      "Delete Draft Invoice",
+      "How do I delete draft invoice?",
+      "Execute Delete Draft Invoice for my account",
+      "Remove this invoicing",
+      "Delete invoicing by ID",
+      "Run DELETE on /v2/invoicing/invoices/{invoice_id}"
+    ]
+  },
+  "PUT_/v2/invoicing/invoices/{invoice_id}_Update Invoice": {
+    "description": "Updates invoice details, amount, or recipient before final settlement.",
+    "example_queries": [
+      "Update Invoice",
+      "How do I update invoice?",
+      "Execute Update Invoice for my account",
+      "Update settings for invoicing",
+      "Modify existing invoicing",
+      "Run PUT on /v2/invoicing/invoices/{invoice_id}"
+    ]
+  },
+  "GET_/v2/invoicing/templates_List Invoice Templates": {
+    "description": "Lists all invoice layout templates configured for billing.",
+    "example_queries": [
+      "List Invoice Templates",
+      "How do I list invoice templates?",
+      "Execute List Invoice Templates for my account",
+      "Show all Invoice Templates",
+      "Get a list of invoicing",
+      "Fetch list invoice templates",
+      "Run GET on /v2/invoicing/templates"
+    ]
+  },
+  "POST_/v2/invoicing/templates_Create Invoice Template": {
+    "description": "Creates a reusable template with standard merchant invoice layout settings.",
+    "example_queries": [
+      "Create Invoice Template",
+      "How do I create invoice template?",
+      "Execute Create Invoice Template for my account",
+      "Create a new invoicing",
+      "Submit and initiate create invoice template",
+      "Please generate invoicing",
+      "Run POST on /v2/invoicing/templates"
+    ]
+  },
+  "GET_/v2/invoicing/templates/{template_id}_Get Invoice Template": {
+    "description": "Retrieves configuration details of a specific invoice template by ID.",
+    "example_queries": [
+      "Get Invoice Template",
+      "How do I get invoice template?",
+      "Execute Get Invoice Template for my account",
+      "Show all Get Invoice Template",
+      "Get a list of invoicing",
+      "Fetch get invoice template",
+      "Run GET on /v2/invoicing/templates/{template_id}"
+    ]
+  },
+  "POST_/v2/payments/authorizations/{authorization_id}/capture_Capture Authorized Payment": {
+    "description": "Captures funds for an authorized payment by authorization ID.",
+    "example_queries": [
+      "Capture Authorized Payment",
+      "How do I capture authorized payment?",
+      "Execute Capture Authorized Payment for my account",
+      "Create a new payments",
+      "Submit and initiate capture authorized payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/authorizations/{authorization_id}/capture"
+    ]
+  },
+  "POST_/v2/payments/authorizations/{authorization_id}/void_Void Authorized Payment": {
+    "description": "Voids an authorized payment, releasing the held funds back to customer.",
+    "example_queries": [
+      "Void Authorized Payment",
+      "How do I void authorized payment?",
+      "Execute Void Authorized Payment for my account",
+      "Create a new payments",
+      "Submit and initiate void authorized payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/authorizations/{authorization_id}/void"
+    ]
+  },
+  "POST_/v2/payments/captures/{capture_id}/refund_Refund Captured Payment": {
+    "description": "Refunds a captured payment by capture ID, either full or partial amount.",
+    "example_queries": [
+      "Refund Captured Payment",
+      "How do I refund captured payment?",
+      "Execute Refund Captured Payment for my account",
+      "Create a new payments",
+      "Submit and initiate refund captured payment",
+      "Please generate payments",
+      "Run POST on /v2/payments/captures/{capture_id}/refund"
+    ]
+  },
+  "GET_/v2/payments/captures/{capture_id}_Show Captured Payment Details": {
+    "description": "Shows status, transaction fee, and breakdown of captured funds.",
+    "example_queries": [
+      "Show Captured Payment Details",
+      "How do I show captured payment details?",
+      "Execute Show Captured Payment Details for my account",
+      "Show all Show Captured Payment Details",
+      "Get a list of payments",
+      "Fetch show captured payment details",
+      "Run GET on /v2/payments/captures/{capture_id}"
+    ]
+  },
+  "GET_/v1/customer/disputes_List Customer Disputes": {
+    "description": "Lists customer disputes filed against merchant transactions.",
+    "example_queries": [
+      "List Customer Disputes",
+      "How do I list customer disputes?",
+      "Execute List Customer Disputes for my account",
+      "Show all Customer Disputes",
+      "Get a list of disputes",
+      "Fetch list customer disputes",
+      "Run GET on /v1/customer/disputes"
+    ]
+  },
+  "GET_/v1/customer/disputes/{dispute_id}_Show Dispute Details": {
+    "description": "Shows full claim reasons, buyer communication, and deadlines for a dispute.",
+    "example_queries": [
+      "Show Dispute Details",
+      "How do I show dispute details?",
+      "Execute Show Dispute Details for my account",
+      "Show all Show Dispute Details",
+      "Get a list of disputes",
+      "Fetch show dispute details",
+      "Run GET on /v1/customer/disputes/{dispute_id}"
+    ]
+  },
+  "POST_/v1/customer/disputes/{dispute_id}/accept-claim_Accept Customer Dispute Claim": {
+    "description": "Accepts customer dispute claim, settling the dispute and refunding buyer.",
+    "example_queries": [
+      "Accept Customer Dispute Claim",
+      "How do I accept customer dispute claim?",
+      "Execute Accept Customer Dispute Claim for my account",
+      "Create a new disputes",
+      "Submit and initiate accept customer dispute claim",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/accept-claim"
+    ]
+  },
+  "POST_/v1/customer/disputes/{dispute_id}/appeal_Appeal Dispute Decision": {
+    "description": "Appeals a resolved dispute when new evidence surfaces.",
+    "example_queries": [
+      "Appeal Dispute Decision",
+      "How do I appeal dispute decision?",
+      "Execute Appeal Dispute Decision for my account",
+      "Create a new disputes",
+      "Submit and initiate appeal dispute decision",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/appeal"
+    ]
+  },
+  "POST_/v1/customer/disputes/{dispute_id}/provide-evidence_Provide Evidence for Dispute": {
+    "description": "Submits tracking numbers or fulfillment documents to challenge buyer claim.",
+    "example_queries": [
+      "Provide Evidence for Dispute",
+      "How do I provide evidence for dispute?",
+      "Execute Provide Evidence for Dispute for my account",
+      "Create a new disputes",
+      "Submit and initiate provide evidence for dispute",
+      "Please generate disputes",
+      "Run POST on /v1/customer/disputes/{dispute_id}/provide-evidence"
+    ]
+  },
+  "POST_/v2/checkout/orders_Create Order": {
+    "description": "Creates a PayPal checkout order with intent CAPTURE or AUTHORIZE.",
+    "example_queries": [
+      "Create Order",
+      "How do I create order?",
+      "Execute Create Order for my account",
+      "Create a new orders",
+      "Submit and initiate create order",
+      "Please generate orders",
+      "Run POST on /v2/checkout/orders"
+    ]
+  },
+  "GET_/v2/checkout/orders/{id}_Show Order Details": {
+    "description": "Shows status, purchase units, and customer approval for order by ID.",
+    "example_queries": [
+      "Show Order Details",
+      "How do I show order details?",
+      "Execute Show Order Details for my account",
+      "Show all Show Order Details",
+      "Get a list of orders",
+      "Fetch show order details",
+      "Run GET on /v2/checkout/orders/{id}"
+    ]
+  },
+  "POST_/v2/checkout/orders/{id}/capture_Capture Payment for Order": {
+    "description": "Captures payment for an approved order.",
+    "example_queries": [
+      "Capture Payment for Order",
+      "How do I capture payment for order?",
+      "Execute Capture Payment for Order for my account",
+      "Create a new orders",
+      "Submit and initiate capture payment for order",
+      "Please generate orders",
+      "Run POST on /v2/checkout/orders/{id}/capture"
+    ]
+  },
+  "GET_/v1/reporting/transactions_List Transactions": {
+    "description": "Searches transactions, incoming payments, and sales volume over a date window.",
+    "example_queries": [
+      "List Transactions",
+      "How do I list transactions?",
+      "Execute List Transactions for my account",
+      "Show all Transactions",
+      "Get a list of reporting",
+      "Fetch list transactions",
+      "Run GET on /v1/reporting/transactions"
+    ]
+  },
+  "GET_/v1/reporting/balances_List Account Balances": {
+    "description": "Lists current available and pending balances for all primary currencies.",
+    "example_queries": [
+      "List Account Balances",
+      "How do I list account balances?",
+      "Execute List Account Balances for my account",
+      "Show all Account Balances",
+      "Get a list of reporting",
+      "Fetch list account balances",
+      "Run GET on /v1/reporting/balances"
+    ]
+  },
+  "POST_/v1/payments/payouts_Create Payout Batch": {
+    "description": "Creates a batch payout to multiple recipients or contractors at once.",
+    "example_queries": [
+      "Create Payout Batch",
+      "How do I create payout batch?",
+      "Execute Create Payout Batch for my account",
+      "Create a new payouts",
+      "Submit and initiate create payout batch",
+      "Please generate payouts",
+      "Run POST on /v1/payments/payouts"
+    ]
+  },
+  "GET_/v1/payments/payouts/{payout_batch_id}_Show Payout Batch Details": {
+    "description": "Shows status and completion items for a payout batch by ID.",
+    "example_queries": [
+      "Show Payout Batch Details",
+      "How do I show payout batch details?",
+      "Execute Show Payout Batch Details for my account",
+      "Show all Show Payout Batch Details",
+      "Get a list of payouts",
+      "Fetch show payout batch details",
+      "Run GET on /v1/payments/payouts/{payout_batch_id}"
+    ]
+  },
+  "GET_/v1/notifications/webhooks_List Webhooks": {
+    "description": "Lists all configured webhook subscription listeners.",
+    "example_queries": [
+      "List Webhooks",
+      "How do I list webhooks?",
+      "Execute List Webhooks for my account",
+      "Show all Webhooks",
+      "Get a list of notifications",
+      "Fetch list webhooks",
+      "Run GET on /v1/notifications/webhooks"
+    ]
+  },
+  "POST_/v1/notifications/webhooks_Create Webhook": {
+    "description": "Registers a new webhook URL listener to receive event notifications.",
+    "example_queries": [
+      "Create Webhook",
+      "How do I create webhook?",
+      "Execute Create Webhook for my account",
+      "Create a new notifications",
+      "Submit and initiate create webhook",
+      "Please generate notifications",
+      "Run POST on /v1/notifications/webhooks"
+    ]
+  }
+}
